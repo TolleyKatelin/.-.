@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    function validateForm(event) {
+      event.preventDefault(); // Предотвращаем отправку формы
+      const fio = document.querySelector('input[type="text"]').value;
+      const email = document.querySelector('input[type="email"]').value;
+      const phone = document.querySelector('input[type="text"][pattern]').value;
+
+      // Проверка на корректность данных
+      const isFioValid = /^[А-Яа-яЁёA-Za-z\s]+$/.test(fio) && fio.length >= 1 && fio.length <= 255; // Проверка на буквы и пробелы
+      const isEmailValid = email.length >= 6 && email.length <= 320;
+      const isPhoneValid = /^(\+?\d{11,15}|[0-9]{10})$/.test(phone);
+
+      if (!isFioValid) {
+        alert("В поле ФИО использование специальных символов и цифр не допускается");
+      } else if (!isEmailValid) {
+        alert("E-mail должен содержать от 6 до 320 символов");
+      }
+      else {
+        alert("Регистрация прошла успешно");
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="center">
+    <h1>Регистрация</h1>
+    <form method="post" onsubmit="validateForm(event)">
+      <div class="txt_field">
+        <input type="text" minlength="1" maxlength="255" required pattern="^[А-Яа-яЁёA-Za-z\s]+$" />
+        <span></span>
+        <label>ФИО*</label>
+      </div>
+      <div class="txt_field">
+        <input type="email" minlength="6" maxlength="320" required />
+        <span></span>
+        <label>E-mail*</label>
+      </div>
+      <div class="txt_field">
+        <input type="text" minlength="11" maxlength="16" required pattern="(\+?\d{11,15}|[0-9]{10})" />
+        <span></span>
+        <label>Номер телефона*</label>
+      </div>
+
+      <div class="signup_link">Создавая учетную запись, вы соглашаетесь с нашими <a href="#">Условия и
+          конфиденциальность</a></div>
+      <input type="submit" value="Регистрация" />
+    </form>
+  </div>
+</body>
+
+</html>
